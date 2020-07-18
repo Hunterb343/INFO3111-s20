@@ -1,0 +1,34 @@
+﻿  theMain.cpp
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(260,67): warning C4305: '+=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(264,67): warning C4305: '+=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(268,67): warning C4305: '+=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(273,67): warning C4305: '-=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(277,67): warning C4305: '-=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(281,67): warning C4305: '-=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(286,33): warning C4552: '+': result of expression not used
+D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\OpenGLIsCool\theMain.cpp(290,33): warning C4552: '-': result of expression not used
+  OpenGLIsCool.vcxproj -> D:\Fanshawe\Semester 4\C++ Graphics\Code\INFO3111-s20\OpenGLIsCool\x64\Debug\OpenGLIsCool.exe
