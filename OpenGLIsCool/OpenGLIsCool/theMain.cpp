@@ -33,7 +33,25 @@ int g_selectedObjectID = 0;
 struct sLight
 {
     sLight() {
-        this->position.x = 0;
+        this->position.x = 10.0f;
+        this->position.y = 10.0f;
+        this->position.z = 10.0f;
+        this->position.w = 1.0f;
+
+        this->diffuse.r = 1.0f;
+        this->diffuse.g = 1.0f;
+        this->diffuse.b = 1.0f;
+        this->diffuse.a = 1.0f;
+
+        this->specular.r = 1.0f;
+        this->specular.g = 1.0f;
+        this->specular.b = 1.0f;
+        this->specular.a = 1.0f;
+
+        this->atten.x = 0.0f;
+        this->atten.y = 0.01f;
+        this->atten.z = 0.0f;
+        this->atten.w = 1.0f;
     }
 
     glm::vec4 position;
@@ -255,39 +273,79 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     if (key == GLFW_KEY_9 && action == GLFW_PRESS ) {::g_isWireFrame = true; }
     if (key == GLFW_KEY_0 && action == GLFW_PRESS ) {::g_isWireFrame = false; }
 
-    if ((key == GLFW_KEY_P && action == GLFW_PRESS) && (mods & GLFW_MOD_SHIFT))
+    if ((key == GLFW_KEY_P) && (mods & GLFW_MOD_SHIFT))
     {
-        ::g_pVecObjects[::g_selectedObjectID]->colourRGBA.r += 0.1;
+        theLights->diffuse.r += 0.01f;
+        std::cout << "pressed mod" << std::endl;
+        
     }
-    if ((key == GLFW_KEY_O && action == GLFW_PRESS) && (mods & GLFW_MOD_SHIFT))
+    else if (key == GLFW_KEY_P)
     {
-        ::g_pVecObjects[::g_selectedObjectID]->colourRGBA.g += 0.1;
+        theLights->diffuse.r -= 0.01f;
+        std::cout << "pressed P" << std::endl;
     }
-    if ((key == GLFW_KEY_I && action == GLFW_PRESS) && (mods & GLFW_MOD_SHIFT))
+    if ((key == GLFW_KEY_O) && (mods & GLFW_MOD_SHIFT))
     {
-        ::g_pVecObjects[::g_selectedObjectID]->colourRGBA.b += 0.1;
+        theLights->diffuse.g += 0.01f;
+    }
+    else     if (key == GLFW_KEY_O)
+    {
+        theLights->diffuse.g -= 0.01f;
+    }
+    if ((key == GLFW_KEY_I) && (mods & GLFW_MOD_SHIFT))
+    {
+        theLights->diffuse.b += 0.01f;;
+    } 
+    else if (key == GLFW_KEY_I)
+    {
+        theLights->diffuse.b -= 0.01f;
     }
 
-    if (key == GLFW_KEY_P && action == GLFW_PRESS)
+
+    if ((key == GLFW_KEY_LEFT) && (mods & GLFW_MOD_SHIFT))
     {
-        ::g_pVecObjects[::g_selectedObjectID]->colourRGBA.r -= 0.1;
+        theLights->position.x += 1.0f;
+
     }
-    if (key == GLFW_KEY_O && action == GLFW_PRESS)
+    else if (key == GLFW_KEY_LEFT)
     {
-        ::g_pVecObjects[::g_selectedObjectID]->colourRGBA.g -= 0.1;
+        theLights->position.x -= 1.0f;
     }
-    if (key == GLFW_KEY_I && action == GLFW_PRESS)
+    if ((key == GLFW_KEY_UP) && (mods & GLFW_MOD_SHIFT))
     {
-        ::g_pVecObjects[::g_selectedObjectID]->colourRGBA.b -= 0.1;
+        theLights->position.y += 1.0f;
     }
+    else     if (key == GLFW_KEY_UP)
+    {
+        theLights->position.y -= 1.0f;
+    }
+    if ((key == GLFW_KEY_RIGHT) && (mods & GLFW_MOD_SHIFT))
+    {
+        theLights->position.z += 1.0f;
+    }
+    else if (key == GLFW_KEY_RIGHT)
+    {
+        theLights->position.z -= 1.0f;
+    }
+
+    if ((key == GLFW_KEY_T) && (mods & GLFW_MOD_SHIFT))
+    {
+        theLights->position.z += 1.0f;
+    }
+    else if (key == GLFW_KEY_T)
+    {
+        theLights->position.z -= 1.0f;
+    }
+    
+
 
     if (key == GLFW_KEY_H && action == GLFW_PRESS)
     {
-        ::theLights->position.y + 10;
+        ::theLights->atten.y *= 1.01f;
     }
     if (key == GLFW_KEY_G && action == GLFW_PRESS)
     {
-        ::theLights->position.y - 10;
+        ::theLights->position.y *= 0.99f;
     }
 
     // Print out camera location:
@@ -296,6 +354,10 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         << ::g_cameraEye.y << ", "
         << ::g_cameraEye.z << std::endl;
 
+    std::cout << "light: "
+        << theLights->position.x << ", "
+        << theLights->position.y << ", "
+        << theLights->position.z << std::endl;
 
 
     return;
@@ -580,9 +642,9 @@ int main(void)
 
         // Set the ligthing for the "scene"
         glUniform4f( theLights_0_position_LocID, theLights->position.x, theLights->position.y, theLights->position.z, 1.0f);      // "theLights[0].position");
-        glUniform4f( theLights_0_diffuse_LocID, 1.0f, 1.0f, 1.0f, 1.0f);            //"theLights[0].diffuse");
-        glUniform4f( theLights_0_specular_LocID, 1.0f, 1.0f, 1.0f, 1.0f);       //"theLights[0].specular");
-        glUniform4f( theLights_0_atten_LocID, 0.0f, 0.01f, 0.0f, 1.0f );         //"theLights[0].atten");
+        glUniform4f( theLights_0_diffuse_LocID, theLights->diffuse.r, theLights->diffuse.g, theLights->diffuse.b, 1.0f);            //"theLights[0].diffuse");
+        glUniform4f( theLights_0_specular_LocID, theLights->specular.r, theLights->specular.g, theLights->specular.b, 1.0f);       //"theLights[0].specular");
+        glUniform4f( theLights_0_atten_LocID, theLights->atten.x, theLights->atten.y, theLights->atten.z, theLights->atten.w);         //"theLights[0].atten");
         glUniform4f( theLights_0_direction_LocID, 0.0f, 0.0f, 0.0f, 1.0f);      //"theLights[0].direction");
         glUniform4f( theLights_0_param1_LocID, 0.0f, 0.0f, 0.0f, 0.0f );        //"theLights[0].param1");
         //x = 0 for off, 1 for on
@@ -713,7 +775,7 @@ int main(void)
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-    }//while ( ! glfwWindowShouldClose(window) )
+    }//while ( ! glfwWindowShouldClose(window) )`
 
 
     delete ::g_pShaderManager;
